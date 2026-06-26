@@ -78,3 +78,28 @@ curl -X PUT -H "Content-Type: application/json" -d '{"isCompleted":true}' http:/
 ```bash
 curl -X DELETE http://localhost:3001/tasks/1
 ```
+
+---
+
+## Pruebas Automatizadas
+
+El proyecto cuenta con una suite de pruebas de integración desarrolladas con **Jest** y **Supertest** para validar el correcto funcionamiento de todos los endpoints de la API.
+
+### Ejecución de las Pruebas
+
+Para ejecutar las pruebas automatizadas, utiliza el siguiente comando en tu terminal:
+
+```bash
+npm test
+```
+
+### ¿Qué validan las pruebas?
+
+El archivo de pruebas `api.test.js` realiza las siguientes verificaciones:
+1. **GET /tasks**: Valida que la API responda con un estado `200 OK` y devuelva un listado de tareas en formato de arreglo.
+2. **POST /tasks**: Valida la correcta creación de una nueva tarea en la lista, verificando que se asigne un ID único y los valores ingresados.
+3. **PUT /tasks/:id**: Valida la edición o actualización del estado (`isCompleted`) de una tarea previamente creada.
+4. **DELETE /tasks/:id**: Valida que se remueva correctamente la tarea del almacenamiento y que los accesos posteriores a ese ID devuelvan un estado `404 Not Found`.
+
+### Aislamiento de Datos (Base de Datos de Prueba)
+La suite de pruebas está configurada para realizar un respaldo automático del archivo `tasks.json` antes de iniciar las ejecuciones y restaurarlo al finalizar (`beforeAll` y `afterAll`). De esta forma, **no se alteran ni pierden tus datos locales** de desarrollo o producción mientras se ejecutan los tests.
