@@ -152,7 +152,11 @@ app.delete('/tasks/:id', (req, res) => {
   }
 });
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor de tareas ejecutándose en http://localhost:${PORT}`);
-});
+// Iniciar el servidor solo si se ejecuta directamente
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Servidor de tareas ejecutándose en http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
